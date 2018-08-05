@@ -1,7 +1,8 @@
-var express = require('express')
-var app = express()
-var session = require('express-session')
-var bodyParser = require('body-parser')
+const express = require('express');
+const app = express();
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose')
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
@@ -12,7 +13,9 @@ app.use(function(req, res, next) {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(session({
     resave: false,
@@ -20,18 +23,16 @@ app.use(session({
     secret: 'any string'
 }));
 
-
-
 function setSession(req, res) {
-    var name = req.params['name'];
-    var value = req.params['value'];
+    const name = req.params['name'];
+    const value = req.params['value'];
     req.session[name] = value;
     res.send(req.session);
 }
 
 function getSession(req, res) {
-    var name = req.params['name'];
-    var value = req.session[name];
+    const name = req.params['name'];
+    const value = req.session[name];
     res.send(value);
 }
 
@@ -44,15 +45,19 @@ function resetSession(req, res) {
     res.send(200);
 }
 
+
 //app.get('/api/session/set/:name/:value', setSession);
 //app.get('/api/session/get/:name', getSession);
 //app.get('/api/session/get', getSessionAll);
 //app.get('/api/session/reset', resetSession);
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/webdev-summer2-2018');
 
-require('./services/user.service.server')(app);
-require('./services/section.service.server')(app);
+mongoose.connect('mongodb://localhost/course-manager');
+
+const userService = require('./services/user.service.server'); //(app);
+userService(app);
+
+const sectionService = require('./services/section.service.server'); //(app);
+sectionService(app);
 
 app.listen(3000);

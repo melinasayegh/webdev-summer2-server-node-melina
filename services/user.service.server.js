@@ -2,15 +2,6 @@ module.exports = app => {
 
     const userModel = require('../models/user/user.model.server');
 
-    app.post  ('/api/register', register);
-    app.post  ('/api/login', login);
-    app.post  ('/api/logout', logout);
-    app.get   ('/api/user', findAllUsers);
-    app.get   ('/api/currentUser', currentUser);
-    app.get   ('/api/profile', profile);
-    app.put   ('/api/profile', updateProfile);
-    app.delete('/api/profile', deleteProfile);
-
     // creates a new user in the mongo database and logs them in
     register = (req, res) =>  {
         const username = req.body.username;
@@ -83,4 +74,14 @@ module.exports = app => {
     deleteProfile = (req, res) => {
 
     };
+
+
+    app.post  ('/api/register', register);
+    app.post  ('/api/login',    login);
+    app.post  ('/api/logout',   logout);
+    app.get   ('/api/user',     findAllUsers);
+    app.get   ('/api/currentUser', currentUser);
+    app.get   ('/api/profile', profile);
+    app.put   ('/api/profile', updateProfile);
+    app.delete('/api/profile', deleteProfile);
 };
