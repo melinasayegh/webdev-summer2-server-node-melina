@@ -1,0 +1,23 @@
+{
+  "name": "webdev-summer2-server-node-melina",
+  "version": "1.0.0",
+  "description": "node.js server for webdev",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melinasayegh/webdev-summer2-server-node-melina.git"
+  },
+  "author": "Melina Sayegh <sayegh.m@husky.neu.edu>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melinasayegh/webdev-summer2-server-node-melina/issues"
+  },
+  "homepage": "https://github.com/melinasayegh/webdev-summer2-server-node-melina#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-session": "^1.15.6"
+  }
+}
