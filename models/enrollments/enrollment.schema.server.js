@@ -5,6 +5,6 @@ const enrollmentSchema = mongoose.Schema({
         ref: 'UserModel'},
     section: {type: mongoose.Schema.Types.ObjectId,
         ref: 'SectionModel'}
-});
+}, {collection: 'enrollments'});
 
 module.exports = enrollmentSchema;

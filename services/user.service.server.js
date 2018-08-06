@@ -49,7 +49,14 @@ module.exports = app => {
                 res.send(users);
             });
 
-    // retrieves the profile of the currently logged in user
+    findUserById = (req, res) =>
+        const id = req.params['userId'];
+        userModel.findUserById(id)
+            .then(user => {
+                res.json(user);
+            })
+
+
     currentUser = (req, res) => {
         const currentUser = req.session['currentUser'];
         if(currentUser) {
@@ -62,19 +69,34 @@ module.exports = app => {
 
     // retrieves the profile of the currently logged in user
     profile = (req, res) => {
-
+        const currentUser = req.session['currentUser'];
+        userModel.findUserById(currentUser._id)
+            .then(user => {
+                res.json(user);
+            })
     };
 
     // updates the profile of the currently logged in user
     updateProfile = (req, res) => {
+        const currentUser = req.session['currentUser'];
+        if (user !== null) {
 
+            const name = req.params['name'];
+            req.session[name] = req.params['value'];
+            res.send(req.session);
+
+            req.session[name] = currentUser.username;
+            updateUser(currentUser._id, req.user)
+
+        } else {
+            return null;
+        }
     };
 
     // removes the profile of the currently logged in user
     deleteProfile = (req, res) => {
 
     };
-
 
     app.post  ('/api/register', register);
     app.post  ('/api/login',    login);

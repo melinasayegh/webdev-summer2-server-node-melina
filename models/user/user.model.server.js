@@ -27,8 +27,15 @@ deleteUser = (userId) =>
     userModel.remove({_id: userId});
 
 updateUser = (userId, newUser) =>
-    userModel.update({_id: userId}, {$set: newUser});
-
+    userModel.update({_id: userId}, {$set:
+            {username: newUser.username,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email,
+                phoneNumber: newUser.phoneNumber,
+                address: newUser.address,
+                role: newUser.role
+        }});
 
 module.exports = {
     findAllUsers,

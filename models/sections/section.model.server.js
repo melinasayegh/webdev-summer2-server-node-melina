@@ -10,8 +10,25 @@ findAllSections = () =>
 findAllSectionsForCourse = courseId =>
     sectionModel.find({courseId: courseId});
 
-createSection = section =>
-    sectionModel.create(section);
+findSectionById = (sectionId) =>
+    sectionModel.findById(sectionId);
+
+createSection = (courseId, section) =>
+    sectionModel.create(section)
+        .then(sectionModel.updateOne(
+            {_id: sectionId},
+            {$set: {courseId: courseId}}));
+
+deleteSection = sectionId =>
+    sectionModel.deleteOne({_id: sectionId});
+
+updateSection = (sectionId, newSection) =>
+    sectionModel.updateOne({_id: sectionId}, {$set: {
+                title: newSection.title,
+                courseId: newSection.courseId,
+                maxSeats: newSection.maxSeats,
+                takenSeats: newSection.takenSeats,
+        }});
 
 enroll = (userId, sectionId) =>
     userModel.findUserById(userId)
@@ -24,5 +41,10 @@ module.exports = {
     enroll,
     findAllSections,
     findAllSectionsForCourse,
-    createSection
+    findSectionById,
+    createSection,
+    deleteSection,
+    updateSection,
+    takeSectionSeat,
+    loseSectionSeat
 };

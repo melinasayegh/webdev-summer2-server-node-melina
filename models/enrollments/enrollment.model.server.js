@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const enrollmentSchema = require('./enrollment.schema.server');
 
 const enrollmentModel = mongoose.model('EnrollmentModel', enrollmentSchema);
-const userModel = require('../user/user.model.server');
-const sectionModel = require('../sections/section.model.server');
 
 findAllEnrollments = () =>
     enrollmentModel.find();
@@ -20,11 +18,15 @@ findAllEnrollmentByStudentAndSection = (userId, sectionId) =>
 createEnrollment = enrollment =>
     enrollmentModel.create(enrollment);
 
+deleteEnrollment = (studentId, sectionId) =>
+    enrollmentModel.deleteOne({student: studentId, section: sectionId});
+
 
 module.exports = {
     findAllEnrollments,
     findAllEnrollmentsForSection,
     findAllEnrollmentsForStudent,
     findAllEnrollmentByStudentAndSection,
-    createEnrollment
+    createEnrollment,
+    deleteEnrollment
 };
