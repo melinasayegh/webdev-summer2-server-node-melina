@@ -1,5 +1,13 @@
 const mongoose = require('mongoose')
-module.exports = mongoose.Schema({
+
+const sectionSchema = mongoose.Schema({
     title: String,
-    courseId: String
+    courseId: String,
+    maxSeats: Number,
+    takenSeats: Number,
+    students: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserModel'}]
 }, {collection: 'section'});
+
+module.exports = sectionSchema;

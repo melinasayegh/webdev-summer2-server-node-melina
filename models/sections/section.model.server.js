@@ -18,7 +18,7 @@ enroll = (userId, sectionId) =>
         .then(user => {
             user.sections.push(sectionId);
             return user.save();
-        })
+        });
 
 module.exports = {
     enroll,

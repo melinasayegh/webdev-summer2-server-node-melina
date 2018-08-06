@@ -13,9 +13,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(session({
     resave: false,
@@ -23,6 +21,7 @@ app.use(session({
     secret: 'any string'
 }));
 
+/*
 function setSession(req, res) {
     const name = req.params['name'];
     const value = req.params['value'];
@@ -44,20 +43,17 @@ function resetSession(req, res) {
     res.session.destroy();
     res.send(200);
 }
-
+*/
 
 //app.get('/api/session/set/:name/:value', setSession);
 //app.get('/api/session/get/:name', getSession);
 //app.get('/api/session/get', getSessionAll);
 //app.get('/api/session/reset', resetSession);
 
+//mongoose.connect('mongodb://localhost/course-manager');
+mongoose.connect('mongodb://user:webdev2@ds213612.mlab.com:13612/webdev-server-node-melina');
 
-mongoose.connect('mongodb://localhost/course-manager');
-
-const userService = require('./services/user.service.server'); //(app);
-userService(app);
-
-const sectionService = require('./services/section.service.server'); //(app);
-sectionService(app);
+require('./services/user.service.server')(app);
+require('./services/section.service.server')(app);
 
 app.listen(3000);
