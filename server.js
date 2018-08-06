@@ -55,5 +55,6 @@ mongoose.connect('mongodb://user:webdev2@ds213612.mlab.com:13612/webdev-server-n
 
 require('./services/user.service.server')(app);
 require('./services/section.service.server')(app);
+require('./services/enrollement.service.server')(app);
 
 app.listen(3000);
