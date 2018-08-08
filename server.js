@@ -48,7 +48,13 @@ app.get('/api/session/get', getSessionAll);
 app.get('/api/session/reset', resetSession);
 
 //mongoose.connect('mongodb://localhost/course-manager');
-mongoose.connect('mongodb://user:webdev2@ds213612.mlab.com:13612/webdev-server-node-melina');
+mongoose.connect('mongodb://user:webdev2@ds213612.mlab.com:13612/webdev-server-node-melina', function(err, db) {
+    if(!err) {
+        console.log("Connected to database.");
+    } else {
+        console.log("Error connecting to database.");
+    }
+});
 
 require('./services/user.service.server')(app);
 require('./services/section.service.server')(app);

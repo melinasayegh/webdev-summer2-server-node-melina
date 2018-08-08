@@ -44,7 +44,5 @@ module.exports = {
     findSectionById,
     createSection,
     deleteSection,
-    updateSection,
-    takeSectionSeat,
-    loseSectionSeat
+    updateSection
 };

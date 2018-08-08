@@ -49,12 +49,13 @@ module.exports = app => {
                 res.send(users);
             });
 
-    findUserById = (req, res) =>
+    findUserById = (req, res) => {
         const id = req.params['userId'];
         userModel.findUserById(id)
             .then(user => {
                 res.json(user);
             })
+    };
 
 
     currentUser = (req, res) => {
