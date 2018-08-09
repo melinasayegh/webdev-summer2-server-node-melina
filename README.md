@@ -6,6 +6,6 @@ Assignment 4: Introduction to the MEAN Stack
 Node.js
 
 ***
-Heroku App: 
+Heroku App: https://webdev-server-node-melina.herokuapp.com/
 
 ***
