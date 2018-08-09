@@ -10,6 +10,9 @@ findAllSections = () =>
 findAllSectionsForCourse = courseId =>
     sectionModel.find({courseId: courseId});
 
+findAllSectionsForStudent = studentId =>
+    sectionModel.find({students: type: studentId});
+
 findSectionById = (sectionId) =>
     sectionModel.findById(sectionId);
 
