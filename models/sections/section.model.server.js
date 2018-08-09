@@ -14,10 +14,7 @@ findSectionById = (sectionId) =>
     sectionModel.findById(sectionId);
 
 createSection = (courseId, section) =>
-    sectionModel.create(section)
-        .then(sectionModel.updateOne(
-            {_id: sectionId},
-            {$set: {courseId: courseId}}));
+    sectionModel.create(section);
 
 deleteSection = sectionId =>
     sectionModel.deleteOne({_id: sectionId});

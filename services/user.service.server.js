@@ -4,14 +4,16 @@ module.exports = app => {
 
     // creates a new user in the mongo database and logs them in
     register = (req, res) =>  {
-        const username = req.body.username;
-        const password = req.body.password;
+        const givenUser = req.body;
         const newUser = {
-            username: username,
-            password: password
+            username: givenUser.username,
+            password: givenUser.password,
+            firstName: givenUser.firstName,
+            lastName: givenUser.lastName,
+            email: givenUser.email
         };
         userModel
-            .findUserByUsername(username)
+            .findUserByUsername(newUser.username)
             .then((user) => {
                 if(!user) {
                     return userModel.createUser(newUser)
@@ -85,23 +87,16 @@ module.exports = app => {
     // updates the profile of the currently logged in user
     updateProfile = (req, res) => {
         const currentUser = req.session['currentUser'];
-        if (user !== null) {
-
-            const name = req.params['name'];
-            req.session[name] = req.params['value'];
-            res.send(req.session);
-
-            req.session[name] = currentUser.username;
-            updateUser(currentUser._id, req.user)
-
-        } else {
-            return null;
-        }
+        const givenUser = req.body;
+        userModel.updateUser(currentUser._id, givenUser)
+                .then(user => res.json(user));
     };
 
     // removes the profile of the currently logged in user
     deleteProfile = (req, res) => {
-
+        const currentUser = req.session['currentUser'];
+        userModel.deleteUser(currentUser)
+            .then(() => res.send(200));
     };
 
     app.post  ('/api/user',     register);

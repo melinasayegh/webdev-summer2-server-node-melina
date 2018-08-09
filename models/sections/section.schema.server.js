@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const sectionSchema = mongoose.Schema({
     title: String,
-    courseId: String,
+    courseId: Number,
     maxSeats: Number,
     takenSeats: Number,
     students: [{

@@ -22,17 +22,19 @@ module.exports = app => {
 
     app.get('/api/section', (req, res) =>
         sectionModel.findAllSections()
-            .then(sections => res.send(sections))
+            .then(sections => res.json(sections))
     );
 
     app.get('/api/section/:sectionId', (req, res) =>
         sectionModel.findSectionById()
-            .then(section => res.send(section))
+            .then(section => res.json(section))
     );
 
-    app.get('/api/course/:courseId/section', (req, res) =>
-        sectionModel.findAllSectionsForCourse(req.params['courseId'])
+    app.get('/api/course/:courseId/section', (req, res) => {
+        const courseId = req.body.courseId;
+        sectionModel.findAllSectionsForCourse(courseId)
             .then(sections => res.send(sections))
+        }
     );
 
     app.get('/api/student/section/', (req, res) => {
@@ -45,18 +47,20 @@ module.exports = app => {
         }
     );
 
-    app.post('/api/course/:courseId/section', (req, res) =>
-        sectionModel.createSection(req.params['courseId'], req.body)
-            .then(section => res.send(section))
+    app.post('/api/course/:courseId/section', (req, res) => {
+        const section = req.body;
+        sectionModel.createSection(req.params['courseId'], section)
+            .then(section => res.json(section));
+        }
     );
 
     app.put('api/section/:sectionId', (req, res) =>
         sectionModel.updateSection(req.params['sectionId'], req.body)
-            .then(section => res.send(section))
+            .then(section => res.json(section))
     );
 
     app.delete('/api/section/:sectionId', (req, res) =>
-        sectionModel.deleteSection(req.body)
+        sectionModel.deleteSection(req.params['sectionId'])
             .then(status => res.sendStatus(200))
     );
 };
