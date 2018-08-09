@@ -30,19 +30,30 @@ updateSection = (sectionId, newSection) =>
                 takenSeats: newSection.takenSeats,
         }});
 
-enroll = (userId, sectionId) =>
-    userModel.findUserById(userId)
-        .then(user => {
-            user.sections.push(sectionId);
-            return user.save();
-        });
+subSectionSeat = (sectionId) => {
+    return sectionModel.update({
+        _id: sectionId
+    }, {
+        $inc: {seats: -1}
+    });
+};
+
+addSectionSeat = (sectionId) => {
+    return sectionModel.update({
+        _id: sectionId
+    }, {
+        $inc: {seats: _1}
+    });
+};
+
 
 module.exports = {
-    enroll,
     findAllSections,
     findAllSectionsForCourse,
     findSectionById,
     createSection,
     deleteSection,
-    updateSection
+    updateSection,
+    subSectionSeat,
+    addSectionSeat
 };

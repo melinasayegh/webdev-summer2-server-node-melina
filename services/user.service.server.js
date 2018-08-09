@@ -12,13 +12,17 @@ module.exports = app => {
         };
         userModel
             .findUserByUsername(username)
-            .then(function (user) {
+            .then((user) => {
                 if(!user) {
-                    return userModel
-                        .createUser(newUser)}})
-            .then(function (user) {
+                    return userModel.createUser(newUser)
+                } else {
+                    // 404 not acceptable
+                    res.sendStatus(406);
+                }
+            })
+            .then((user) =>  {
                 req.session['currentUser'] = user;
-                res.send(user);
+                res.send(req.session['currentUser']);
             });
     };
 
@@ -32,7 +36,8 @@ module.exports = app => {
                     req.session['currentUser'] = user;
                     res.send(user);
                 } else {
-                    res.send(0);
+                    // 404 not found
+                    res.sendStatus(404);
                 }
             });
     };
@@ -62,9 +67,9 @@ module.exports = app => {
         const currentUser = req.session['currentUser'];
         if(currentUser) {
             userModel.findUserByIdExpanded(currentUser._id)
-                .then(user => res.send(user))
+                .then(user => res.sendStatus(200));
         } else {
-            res.sendStatus(403)
+            res.sendStatus(403);
         }
     };
 
@@ -99,7 +104,7 @@ module.exports = app => {
 
     };
 
-    app.post  ('/api/register', register);
+    app.post  ('/api/user',     register);
     app.post  ('/api/login',    login);
     app.post  ('/api/logout',   logout);
     app.get   ('/api/user',     findAllUsers);

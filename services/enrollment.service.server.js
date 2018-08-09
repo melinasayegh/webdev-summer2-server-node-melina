@@ -11,9 +11,29 @@ module.exports = app => {
     );
 
     // create enrollment
-    app.post('/api/enrollment', (req, res) =>
-        enrollmentModel.createEnrollment(req.body)
-            .then(enrollment => res.send(enrollment))
+    app.post('/api/section/:sectionId/enrollment', (req, res) => {
+            const sectionId = req.params.sectionId;
+            const currentUser = req.session.currentUser;
+            const enrollment = {
+                student: currentUser._id,
+                section: sectionId
+            };
+
+            sectionModel.subSectionSeat(sectionId)
+                .then(() => {
+                    enrollmentModel.createEnrollment(enrollment)
+                })
+                .then((enrollment) => {
+                    res.json(enrollment);
+                });
+        }
+    );
+
+    // find all enrollments
+    app.delete('/api/section/:sectionId/enrollment', (req, res) =>
+        sectionModel.addSectionSeat(sectionId)
+            .then(() => enrollmentModel.deleteEnrollment(sectionId))
+            .then(enrollments => res.send(enrollments))
     );
 
     // enrolls student into a section
