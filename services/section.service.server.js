@@ -35,7 +35,7 @@ module.exports = app => {
             .then(sections => res.send(sections))
     );
 
-    app.get('/api/section/:sectionId/', (req, res) => {
+    app.get('/api/student/section/', (req, res) => {
         const currentUser = req.session.currentUser;
         const studentId = currentUser._id;
         enrollmentModel.findSectionsForStudent(studentId)
