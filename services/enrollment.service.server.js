@@ -21,13 +21,26 @@ module.exports = app => {
 
             sectionModel.subSectionSeat(sectionId)
                 .then(() => {
-                    enrollmentModel.createEnrollment(enrollment)
+                    enrollmentModel.createEnrollment(enrollment);
+                    userModel.enrollStudent(currentUser._id, sectionId);
                 })
                 .then((enrollment) => {
                     res.json(enrollment);
                 });
         }
     );
+
+    app.get('/api/student/section/', (req, res) => {
+            const currentUser = req.session['currentUser'];
+            const studentId = currentUser._id;
+            enrollmentModel.findAllSectionsForStudent(studentId)
+                .then(function(enrollments) {
+                    res.json(enrollments);
+                });
+        }
+    );
+
+    // find all sections for student
 
     // find all enrollments
     app.delete('/api/section/:sectionId/enrollment', (req, res) =>

@@ -9,8 +9,10 @@ findAllEnrollments = () =>
 findAllEnrollmentsForSection = sectionId =>
     enrollmentModel.find({sectionId: sectionId});
 
-findAllEnrollmentsForStudent = studentId =>
-    enrollmentModel.find({studentId: studentId});
+findAllSectionsForStudent = studentId =>
+    enrollmentModel.find({studentId: studentId})
+        .populate('section')
+        .exec();
 
 findAllEnrollmentByStudentAndSection = (userId, sectionId) =>
     enrollmentModel.find({studentId: studentId, sectionId: sectionId});
@@ -25,7 +27,7 @@ deleteEnrollment = (studentId, sectionId) =>
 module.exports = {
     findAllEnrollments,
     findAllEnrollmentsForSection,
-    findAllEnrollmentsForStudent,
+    findAllSectionsForStudent,
     findAllEnrollmentByStudentAndSection,
     createEnrollment,
     deleteEnrollment

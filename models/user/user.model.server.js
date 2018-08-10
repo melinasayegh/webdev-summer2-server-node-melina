@@ -17,7 +17,7 @@ findUserByCredentials = (username, password) =>
 findUserByUsername = (username) =>
     userModel.findOne({username: username});
 
-findUserByIdExpanded = userId =>
+findUserByIdExpanded = (userId) =>
     userModel.findById(userId).populate('sections').exec();
 
 createUser = (user) =>
@@ -27,7 +27,7 @@ deleteUser = (userId) =>
     userModel.remove({_id: userId});
 
 updateUser = (userId, newUser) =>
-    userModel.update({_id: userId}, {$set: {
+    userModel.findUpdate({_id: userId}, {$set: {
         username:    newUser.username,
         firstName:   newUser.firstName,
         lastName:    newUser.lastName,
@@ -35,6 +35,13 @@ updateUser = (userId, newUser) =>
         phoneNumber: newUser.phoneNumber,
         address:     newUser.address
         }});
+
+enrollStudent = (userId, sectionId) => {
+    const user = findUserById(userId);
+    userModel.user.sections.push(sectionId)
+        .then(() => user.save());
+}
+
 
 module.exports = {
     findAllUsers,
@@ -44,5 +51,6 @@ module.exports = {
     findUserByIdExpanded,
     createUser,
     deleteUser,
-    updateUser
+    updateUser,
+    enrollStudent
 };

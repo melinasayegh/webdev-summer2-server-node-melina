@@ -14,6 +14,7 @@ module.exports = app => {
         sectionModel.subSectionSeat(sectionId)
             .then(() => {
                 enrollmentModel.createEnrollment(enrollment);
+                userModel.createEnrollment(sectionId);
             })
             .then(function (enrollment) {
                 res.json(enrollment);
@@ -31,19 +32,12 @@ module.exports = app => {
     );
 
     app.get('/api/course/:courseId/section', (req, res) => {
-        const courseId = req.body.courseId;
+        const courseId = parseInt(req.params['courseId']);
         sectionModel.findAllSectionsForCourse(courseId)
-            .then(sections => res.send(sections))
-        }
-    );
-
-    app.get('/api/student/section/', (req, res) => {
-        const currentUser = req.session.currentUser;
-        const studentId = currentUser._id;
-        enrollmentModel.findSectionsForStudent(studentId)
-            .then(function(enrollments) {
-                res.json(enrollments);
-            });
+            .then((sections) => {
+                console.log(sections)
+                res.json(sections)
+            })
         }
     );
 

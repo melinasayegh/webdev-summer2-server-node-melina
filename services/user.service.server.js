@@ -30,6 +30,7 @@ module.exports = app => {
 
     // finds the user in the mongo database and logs them in
     login = (req, res) => {
+        console.log("here");
         const username = req.body.username;
         const password = req.body.password;
         userModel.findUserByCredentials(username, password)
