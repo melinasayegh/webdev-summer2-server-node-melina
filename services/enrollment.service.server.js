@@ -12,8 +12,8 @@ module.exports = app => {
 
     // create enrollment
     app.post('/api/section/:sectionId/enrollment', (req, res) => {
-            const sectionId = req.params.sectionId;
-            const currentUser = req.session.currentUser;
+            const sectionId = req.session['sectionId'];
+            const currentUser = req.session['currentUser'];
             const enrollment = {
                 student: currentUser._id,
                 section: sectionId

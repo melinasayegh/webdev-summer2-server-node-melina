@@ -27,14 +27,7 @@ deleteUser = (userId) =>
     userModel.remove({_id: userId});
 
 updateUser = (userId, newUser) =>
-    userModel.findUpdate({_id: userId}, {$set: {
-        username:    newUser.username,
-        firstName:   newUser.firstName,
-        lastName:    newUser.lastName,
-        email:       newUser.email,
-        phoneNumber: newUser.phoneNumber,
-        address:     newUser.address
-        }});
+    userModel.update({_id: userId}, {$set: newUser});
 
 enrollStudent = (userId, sectionId) => {
     const user = findUserById(userId);
