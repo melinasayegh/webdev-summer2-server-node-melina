@@ -31,7 +31,7 @@ subSectionSeat = (sectionId) => {
 };
 
 addSectionSeat = (sectionId) => {
-    sectionModel.update({_id: sectionId}, {$inc: {availableSeats: 1}});
+    sectionModel.update({_id: sectionId}, {$inc: {availableSeats: +1}});
 };
 
 

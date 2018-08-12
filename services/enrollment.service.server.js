@@ -42,9 +42,9 @@ module.exports = app => {
             let sectionId = req.params['sectionId'];
             if (currentUser !== undefined) {
                 let studentId = currentUser._id;
-                sectionModel.addSectionSeat(sectionId)
-                    .then(() => enrollmentModel.deleteEnrollment(studentId, sectionId))
-                    .then(enrollments => res.send(enrollments));
+                enrollmentModel.deleteEnrollment(studentId, sectionId)
+                    .then(() => sectionModel.addSectionSeat(sectionId))
+                    .then(() => res.sendStatus(200));
             }
         }
     );

@@ -21,7 +21,7 @@ createEnrollment = enrollment =>
     enrollmentModel.create(enrollment);
 
 deleteEnrollment = (studentId, sectionId) =>
-    enrollmentModel.delete({student: studentId, section: sectionId});
+    enrollmentModel.deleteOne({student: studentId, section: sectionId});
 
 
 module.exports = {
