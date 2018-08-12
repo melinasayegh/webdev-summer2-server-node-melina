@@ -3,6 +3,7 @@ module.exports = app => {
     const sectionModel = require('../models/sections/section.model.server');
     const enrollmentModel = require('../models/enrollments/enrollment.model.server')
 
+    /*
     app.put('/api/section/:sectionId/enroll', (req, res) => {
         const sectionId = req.params['sectionId'];
         const currentUser = req.session['currentUser'];
@@ -20,7 +21,7 @@ module.exports = app => {
                 res.json(enrollment);
             });
     });
-
+*/
     app.get('/api/section', (req, res) =>
         sectionModel.findAllSections()
             .then(sections => res.json(sections))
