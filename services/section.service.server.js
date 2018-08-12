@@ -1,27 +1,7 @@
 module.exports = app => {
 
     const sectionModel = require('../models/sections/section.model.server');
-    const enrollmentModel = require('../models/enrollments/enrollment.model.server')
 
-    /*
-    app.put('/api/section/:sectionId/enroll', (req, res) => {
-        const sectionId = req.params['sectionId'];
-        const currentUser = req.session['currentUser'];
-        const studentId = currentUser._id;
-        const enrollment = {
-            student: studentId,
-            section: sectionId
-        };
-        sectionModel.subSectionSeat(sectionId)
-            .then(() => {
-                enrollmentModel.createEnrollment(enrollment);
-                userModel.createEnrollment(sectionId);
-            })
-            .then(function (enrollment) {
-                res.json(enrollment);
-            });
-    });
-*/
     app.get('/api/section', (req, res) =>
         sectionModel.findAllSections()
             .then(sections => res.json(sections))

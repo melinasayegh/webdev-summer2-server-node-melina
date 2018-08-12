@@ -69,7 +69,7 @@ module.exports = app => {
     currentUser = (req, res) => {
         const currentUser = req.session['currentUser'];
         if(currentUser) {
-            userModel.findUserByIdExpanded(currentUser._id)
+            userModel.findUserById(currentUser._id)
                 .then(user => res.send(user));
         } else {
             res.sendStatus(403);

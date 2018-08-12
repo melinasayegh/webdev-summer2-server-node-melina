@@ -4,7 +4,7 @@ const sectionSchema = mongoose.Schema({
     title: String,
     courseId: Number,
     maxSeats: Number,
-    takenSeats: Number,
+    availableSeats: Number,
     students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserModel'}]

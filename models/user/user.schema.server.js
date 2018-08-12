@@ -13,9 +13,7 @@ const userSchema = mongoose.Schema({
         enum : ['ADMIN','FACULTY','STUDENT'],
         default: 'STUDENT'
     },
-    sections: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'SectionModel'}]
+    sections: [String]
 }, {collection: 'user'});
 
 module.exports = userSchema
