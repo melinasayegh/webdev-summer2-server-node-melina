@@ -31,8 +31,7 @@ updateUser = (userId, newUser) =>
 
 enrollStudent = (userId, sectionId) => {
     const user = findUserById(userId);
-    userModel.user.sections.push(sectionId)
-        .then(() => user.save());
+    userModel.user.sections.push(sectionId).then(() => user.save());
 }
 
 
