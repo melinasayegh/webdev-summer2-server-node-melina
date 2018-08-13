@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const answerSchema = mongoose.Schema({
     question: {
         type: mongoose.Schema.Types.ObjectId,
@@ -6,10 +7,8 @@ const answerSchema = mongoose.Schema({
     },
     trueFalseAnswer: Boolean,
     multipleChoiceAnswer: Number,
-    fillBlanksAnswers: {
-        variable: String,
-        value: String
-    },
+    fillBlanksAnswers: String,
     essayAnswer: String
 }, {collection: 'answer'});
+
 module.exports = answerSchema;
