@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const submissionSchema = mongoose.Schema({
-    student: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserModel'
-    },
     quiz: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'QuizModel'
+    },
+    student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserModel'
     },
     answers: [{
         fillBlanksAnswers: {
@@ -21,6 +21,7 @@ const submissionSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'QuestionModel'
         }
-    }]
+    }],
+    timestamp: Date
 }, {collection: 'submission'});
 module.exports = submissionSchema;
