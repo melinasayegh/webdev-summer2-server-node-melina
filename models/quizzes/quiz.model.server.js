@@ -15,9 +15,7 @@ createQuiz = quiz =>
     quizModel.create(quiz);
 
 updateQuiz = (quizId, newQuiz) =>
-    quizModel.update({_id: quizId}, {
-        $set: newQuiz
-    });
+    quizModel.update({_id: quizId}, {$set: newQuiz});
 
 deleteQuiz = quizId =>
     quizModel.remove({_id: quizId});
