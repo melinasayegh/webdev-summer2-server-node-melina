@@ -16,9 +16,17 @@ module.exports = app => {
         const courseId = parseInt(req.params['courseId']);
         sectionModel.findAllSectionsForCourse(courseId)
             .then((sections) => {
-                console.log(sections)
                 res.json(sections)
             })
+        }
+    );
+
+    app.get('/api/section/student/:studentId', (req, res) => {
+            const studentId = parseInt(req.params['studentId']);
+            sectionModel.findAllSectionsForStudent(studentId)
+                .then((sections) => {
+                    res.json(sections)
+                })
         }
     );
 

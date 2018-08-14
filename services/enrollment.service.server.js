@@ -13,6 +13,7 @@ module.exports = app => {
     app.post('/api/section/:sectionId/enrollment', (req, res) => {
             let sectionId = req.params['sectionId'];
             let currentUser = req.session['currentUser'];
+            var thisSection = {};
             if (currentUser !== undefined) {
                 let enrollment = {
                     student: currentUser._id,
@@ -21,12 +22,27 @@ module.exports = app => {
 
                 sectionModel.findSectionById(sectionId)
                     .then((section) => {
+                        thisSection = section;
                         if (section.availableSeats <= 0) {
-                            res.sendStatus(402);
+                            res.sendStatus(409);
                         }
-                    }).then(() => sectionModel.subSectionSeat(sectionId))
-                    .then(() => enrollmentModel.createEnrollment(enrollment))
-                    .then(() => res.send(enrollment)
+                    }).then(() => {
+                        enrollmentModel.findEnrollmentByStudentAndSection(enrollment.student, enrollment.section)
+                            .then(response => {
+                                if (response !== null) {
+                                    res.sendStatus(403);
+                                }
+                            });
+                }).then(() => {
+                    sectionModel.findAllSectionsForCourseAndStudent(thisSection.courseId, enrollment.student)
+                        .then(response => {
+                            if (response !== null) {
+                                res.sendStatus(406);
+                            }
+                        });
+                }).then(() => sectionModel.subSectionSeat(sectionId))
+                .then(() => enrollmentModel.createEnrollment(enrollment))
+                .then(() => res.send(enrollment)
                 )
             }
         }

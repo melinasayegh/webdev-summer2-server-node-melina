@@ -14,8 +14,11 @@ findAllSectionsForStudent = studentId =>
         .populate('section')
         .exec();
 
-findAllEnrollmentByStudentAndSection = (userId, sectionId) =>
-    enrollmentModel.find({student: studentId, section: sectionId});
+findEnrollmentByStudentAndSection = (userId, sectionId) =>
+    enrollmentModel.find({student: studentId, section: sectionId})
+        .populate('section')
+        .populate('student')
+        .exec();
 
 createEnrollment = enrollment =>
     enrollmentModel.create(enrollment);
@@ -30,7 +33,7 @@ module.exports = {
     findAllEnrollments,
     findAllEnrollmentsForSection,
     findAllSectionsForStudent,
-    findAllEnrollmentByStudentAndSection,
+    findEnrollmentByStudentAndSection,
     createEnrollment,
     deleteEnrollment,
     updateEnrollment
