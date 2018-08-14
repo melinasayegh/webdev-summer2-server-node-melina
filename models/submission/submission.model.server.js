@@ -5,6 +5,12 @@ const submissionModel = mongoose.model('SubmissionModel', submissionSchema);
 findAllSubmissions = () =>
     submissionModel.find();
 
+findSubmissionById = (submissionId) =>
+    submissionModel.findById(submissionId)
+        .populate('answers')
+        .populate('answers.question')
+        .exec();
+
 findAllSubmissionsForStudent = studentId =>
     submissionModel.find({student: studentId});
 
@@ -22,6 +28,7 @@ updateSubmission = (submissionId, newSubmission) =>
 
 module.exports = {
     findAllSubmissions,
+    findSubmissionById,
     findAllSubmissionsForStudent,
     findAllSubmissionsForQuiz,
     createSubmission,

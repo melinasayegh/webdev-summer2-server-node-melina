@@ -9,7 +9,7 @@ findAllUsers = () =>
     userModel.find();
 
 findUserById = userId =>
-    userModel.findOne({_id: userId});
+    userModel.findById({_id: userId});
 
 findUserByCredentials = (username, password) =>
     userModel.findOne({username: username, password: password});

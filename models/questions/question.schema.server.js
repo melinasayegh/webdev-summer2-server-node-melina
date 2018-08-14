@@ -4,6 +4,15 @@ const questionSchema = mongoose.Schema({
     title: String,
     points: Number,
     description: String,
+    questionType: {
+        type: String,
+        enum: [
+            'ESSAY',
+            'FILL_BLANKS',
+            'TRUE_FALSE',
+            'MULTIPLE_CHOICE'
+        ]
+    },
 
     // if essay, no added variable
 
@@ -18,17 +27,7 @@ const questionSchema = mongoose.Schema({
         text: String,
         value: String,
         correct: Boolean
-    }],
-
-    questionType: {
-        type: String,
-        enum: [
-            'ESSAY',
-            'FILL_BLANKS',
-            'TRUE_FALSE',
-            'MULTIPLE_CHOICE'
-        ]
-    }
+    }]
 }, {collection: 'question'});
 
 module.exports = questionSchema;
