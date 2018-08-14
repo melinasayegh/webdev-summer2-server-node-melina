@@ -27,7 +27,6 @@ module.exports = app => {
                             res.sendStatus(409);
                         }
                     })
-                    /*
                     .then(() => {
                         enrollmentModel.findEnrollmentByStudentAndSection(enrollment.student, enrollment.section)
                             .then(response => {
@@ -42,8 +41,7 @@ module.exports = app => {
                                 res.sendStatus(406);
                             }
                         });
-                })*/
-                    .then(() => sectionModel.subSectionSeat(sectionId))
+                }).then(() => sectionModel.subSectionSeat(sectionId))
                 .then(() => enrollmentModel.createEnrollment(enrollment))
                 .then(() => res.send(enrollment)
                 )
