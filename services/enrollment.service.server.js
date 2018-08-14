@@ -18,9 +18,16 @@ module.exports = app => {
                     student: currentUser._id,
                     section: sectionId
                 };
-                enrollmentModel.createEnrollment(enrollment)
-                    .then(() => sectionModel.subSectionSeat(sectionId))
-                    .then(() => res.send(enrollment));
+
+                sectionModel.findSectionById(sectionId)
+                    .then((section) => {
+                        if (section.availableSeats <= 0) {
+                            res.sendStatus(402);
+                        }
+                    }).then(() => sectionModel.subSectionSeat(sectionId))
+                    .then(() => enrollmentModel.createEnrollment(enrollment))
+                    .then(() => res.send(enrollment)
+                )
             }
         }
     );
@@ -42,8 +49,8 @@ module.exports = app => {
             let sectionId = req.params['sectionId'];
             if (currentUser !== undefined) {
                 let studentId = currentUser._id;
-                enrollmentModel.deleteEnrollment(studentId, sectionId)
-                    .then(() => sectionModel.addSectionSeat(sectionId))
+                sectionModel.addSectionSeat(sectionId)
+                    .then(() => enrollmentModel.deleteEnrollment(studentId, sectionId))
                     .then(() => res.sendStatus(200));
             }
         }

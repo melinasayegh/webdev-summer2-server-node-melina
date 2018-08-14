@@ -28,32 +28,6 @@ app.use(session({
     secret: 'any string'
 }));
 
-function setSession(req, res) {
-    const name = req.params['name'];
-    req.session[name] = req.params['value'];
-    res.send(req.session);
-}
-
-function getSession(req, res) {
-    const name = req.params['name'];
-    const value = req.session[name];
-    res.send(value);
-}
-
-function getSessionAll(req, res) {
-    res.send(req.session);
-}
-
-function resetSession(req, res) {
-    res.session.destroy();
-    res.send(200);
-}
-
-app.get('/api/session/set/:name/:value', setSession);
-app.get('/api/session/get/:name', getSession);
-app.get('/api/session/get', getSessionAll);
-app.get('/api/session/reset', resetSession);
-
 //mongoose.connect('mongodb://localhost/course-manager');
 mongoose.connect('mongodb://user:webdev2@ds213612.mlab.com:13612/webdev-server-node-melina', function(err, db) {
     if(!err) {
@@ -66,5 +40,9 @@ mongoose.connect('mongodb://user:webdev2@ds213612.mlab.com:13612/webdev-server-n
 require('./services/user.service.server')(app);
 require('./services/section.service.server')(app);
 require('./services/enrollment.service.server')(app);
+require('./services/quiz.service.server')(app);
+require('./services/question.service.server')(app);
+//require('./services/answer.service.server')(app);
+//require('./services/submission')(app);
 
 app.listen(process.env.PORT || 3000);

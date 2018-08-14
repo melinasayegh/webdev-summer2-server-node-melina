@@ -23,6 +23,8 @@ createEnrollment = enrollment =>
 deleteEnrollment = (studentId, sectionId) =>
     enrollmentModel.deleteOne({student: studentId, section: sectionId});
 
+updateEnrollment = (enrollmentId, newEnrollment) =>
+    enrollmentModel.update({_id: enrollmentId}, {$set: newEnrollment});
 
 module.exports = {
     findAllEnrollments,
@@ -30,5 +32,6 @@ module.exports = {
     findAllSectionsForStudent,
     findAllEnrollmentByStudentAndSection,
     createEnrollment,
-    deleteEnrollment
+    deleteEnrollment,
+    updateEnrollment
 };
