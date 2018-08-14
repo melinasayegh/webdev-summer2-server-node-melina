@@ -16,10 +16,10 @@ module.exports = app => {
             .findUserByUsername(newUser.username)
             .then((user) => {
                 if(!user) {
-                    return userModel.createUser(newUser)
+                    userModel.createUser(newUser)
                 } else {
                     // 404 not acceptable
-                    res.sendStatus(406);
+                    return res.sendStatus(406);
                 }
             })
             .then((user) =>  {
@@ -40,7 +40,7 @@ module.exports = app => {
                     res.send(user);
                 } else {
                     // 404 not found
-                    res.sendStatus(404);
+                    return res.sendStatus(404);
                 }
             });
     };
@@ -70,9 +70,11 @@ module.exports = app => {
         const currentUser = req.session['currentUser'];
         if(currentUser) {
             userModel.findUserById(currentUser._id)
-                .then(user => res.send(user));
+                .then(user => {
+                    return res.send(user)
+                });
         } else {
-            res.sendStatus(403);
+            return res.sendStatus(403);
         }
     };
 
