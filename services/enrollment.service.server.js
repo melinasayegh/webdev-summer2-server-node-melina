@@ -24,26 +24,26 @@ module.exports = app => {
                     .then((section) => {
                         thisSection = section;
                         if (section.availableSeats <= 0) {
-                            res.sendStatus(409);
+                            return res.sendStatus(409);
                         }
                     })
                     .then(() => {
                         enrollmentModel.findEnrollmentByStudentAndSection(enrollment.student, enrollment.section)
                             .then(response => {
                                 if (response !== null) {
-                                    res.sendStatus(403);
+                                    return res.sendStatus(403);
                                 }
                             });
                 }).then(() => {
                     sectionModel.findAllSectionsForCourseAndStudent(thisSection.courseId, enrollment.student)
                         .then(response => {
                             if (response !== null) {
-                                res.sendStatus(406);
+                                return res.sendStatus(406);
                             }
                         });
                 }).then(() => sectionModel.subSectionSeat(sectionId))
                 .then(() => enrollmentModel.createEnrollment(enrollment))
-                .then(() => res.send(enrollment)
+                .then(() =>  res.send(enrollment)
                 )
             }
         }
