@@ -14,10 +14,11 @@ module.exports = app => {
     };
 
     findSubmissionsForQuizAndStudent = (req, res) => {
-        let studentId = req.session['currentUser'];
-        const quizId = req.params['quizId'];
-        submissionModel.findAllSubmissionsForQuizAndStudent(quizId, studentId)
-            .then(quizzes => res.send(quizzes))
+        let currentUser = req.session['currentUser'];
+        if (currentUser !== undefined) {
+            submissionModel.findAllSubmissionsForQuizAndStudent(req.params.quizId, currentUser)
+                .then(quizzes => res.send(quizzes))
+        }
     };
 
     findSubmissionById = (req, res) => {
@@ -49,10 +50,16 @@ module.exports = app => {
     };
 
     submitQuiz = (req, res) => {
-        let currentUser = req.session['currentUser'];
-        let quiz = req.body;
-        submissionModel.createSubmission(quiz, currentUser)
-            .then(quiz => res.send(quiz));
+        let submission = req.body;
+        let studentId = req.session['currentUser'];
+        let newSubmission = {
+            quiz: submission.quiz,
+            student: studentId,
+            answers: submission.answers,
+            timestamp: submission.timestamp
+        };
+        submissionModel.createSubmission(newSubmission)
+            .then(quiz => res.send(quiz))
 
     };
 
