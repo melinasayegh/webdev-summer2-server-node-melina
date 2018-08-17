@@ -7,27 +7,20 @@ const questionSchema = mongoose.Schema({
     questionType: {
         type: String,
         enum: [
-            'ESSAY',
-            'FILL_BLANKS',
-            'TRUE_FALSE',
-            'MULTIPLE_CHOICE'
+            'ESSAY', 'FILL_BLANKS', 'TRUE_FALSE', 'MULTIPLE_CHOICE'
         ]
     },
-
-    // if essay, no added variable
-
-    // if fill in the blanks
+    // if essay:
+    essay: String,
+    // if fill in the blanks:
     blanks: [String],
-
-    // if true false
+    // if true false:
     true: Boolean,
-
-    // if multiple choice
+    // if multiple choice:
     choices: [{
         text: String,
         value: String,
         correct: Boolean
     }]
 }, {collection: 'question'});
-
 module.exports = questionSchema;

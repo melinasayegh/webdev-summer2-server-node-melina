@@ -7,7 +7,7 @@ const answerSchema = mongoose.Schema({
     },
     trueFalseAnswer: Boolean,
     multipleChoiceAnswer: Number,
-    fillBlanksAnswers: String,
+    fillBlanksAnswers: [String],
     essayAnswer: String
 }, {collection: 'answer'});
 

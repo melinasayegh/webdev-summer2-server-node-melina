@@ -10,10 +10,21 @@ const submissionSchema = mongoose.Schema({
         ref: 'UserModel'
     },
     answers: [{
-        answer: {
+        question: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'AnswerModel'
-        }
+            ref: 'QuestionModel'
+        },
+        essayAnswer: String,
+        blanksAnswer: {
+            variable: String,
+            value: String
+        },
+        trueFalseAnswer: Boolean,
+        choiceAnswer: Number
+    //    answer: {
+    //        type: mongoose.Schema.Types.ObjectId,
+    //        ref: 'AnswerModel'
+    //    }
     }],
     timestamp: Date
 }, {collection: 'submission'});
