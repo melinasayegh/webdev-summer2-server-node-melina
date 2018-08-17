@@ -6,8 +6,7 @@ findAllQuizzes = () =>
     quizModel.find();
 
 findQuizById = quizId =>
-    quizModel
-        .findById(quizId)
+    quizModel.findById(quizId)
         .populate('questions')
         .exec();
 

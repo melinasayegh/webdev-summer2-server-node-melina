@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const submissionSchema = require('submission.schema.server');
+const submissionSchema = require('./submission.schema.server');
 const submissionModel = mongoose.model('SubmissionModel', submissionSchema);
 
 findAllSubmissions = () =>
@@ -7,18 +7,27 @@ findAllSubmissions = () =>
 
 findSubmissionById = (submissionId) =>
     submissionModel.findById(submissionId)
+        .populate('quiz')
+        .populate('student')
         .populate('answers')
         .populate('answers.question')
         .exec();
 
-findAllSubmissionsForStudent = studentId =>
-    submissionModel.find({student: studentId});
+findAllSubmissionsForQuizAndStudent = (quizId, studentId) => {
+    submissionModel.findOne({quiz: quizId, student: studentId})
+        .populate('quiz')
+        .populate('student')
+        .exec();
+}
 
 findAllSubmissionsForQuiz = quizId =>
-    submissionModel.find({quiz: quizId});
+    submissionModel.find({quiz: quizId})
+        .populate('quiz')
+        .exec();
 
-createSubmission = submission =>
+createSubmission = submission => {
     submissionModel.create(submission);
+};
 
 deleteSubmission = submission =>
     submissionModel.delete(submission);
@@ -29,7 +38,7 @@ updateSubmission = (submissionId, newSubmission) =>
 module.exports = {
     findAllSubmissions,
     findSubmissionById,
-    findAllSubmissionsForStudent,
+    findAllSubmissionsForQuizAndStudent,
     findAllSubmissionsForQuiz,
     createSubmission,
     deleteSubmission,
