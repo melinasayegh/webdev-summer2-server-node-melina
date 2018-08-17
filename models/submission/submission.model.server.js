@@ -6,27 +6,17 @@ findAllSubmissions = () =>
     submissionModel.find();
 
 findSubmissionById = (submissionId) =>
-    submissionModel.findById(submissionId)
-        .populate('quiz')
-        .populate('student')
-        .populate('answers')
-        .populate('answers.question')
-        .exec();
+    submissionModel.findById(submissionId);
 
 findAllSubmissionsForQuizAndStudent = (quizId, studentId) => {
-    submissionModel.findOne({quiz: quizId, student: studentId})
-        .populate('quiz')
-        .populate('student')
-        .exec();
+    return submissionModel.find({quiz: quizId, student: studentId});
 }
 
 findAllSubmissionsForQuiz = quizId =>
-    submissionModel.find({quiz: quizId})
-        .populate('quiz')
-        .exec();
+    submissionModel.find({quiz: quizId});
 
 createSubmission = submission => {
-    submissionModel.create(submission);
+    return submissionModel.create(submission);
 };
 
 deleteSubmission = submission =>

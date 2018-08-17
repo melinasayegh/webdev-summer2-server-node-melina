@@ -20,7 +20,7 @@ const submissionSchema = mongoose.Schema({
             value: String
         },
         trueFalseAnswer: Boolean,
-        choiceAnswer: Number
+        choiceAnswer: String
     //    answer: {
     //        type: mongoose.Schema.Types.ObjectId,
     //        ref: 'AnswerModel'
